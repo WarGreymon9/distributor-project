@@ -1,0 +1,61 @@
+.tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100rpx;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: 1rpx solid #eee;
+    z-index: 999;
+    
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      height: 100%;
+      
+      .tab-icon {
+        width: 40rpx;
+        height: 40rpx;
+        margin-bottom: 8rpx;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      
+      .home-icon {
+        background-color: #999;
+        border-radius: 6rpx;
+      }
+      
+      .share-icon {
+        // background-color: #999;
+        // border-radius: 50%;
+      }
+      
+      .profile-icon {
+        background-color: #999;
+        border-radius: 50%;
+      }
+      
+      .tab-text {
+        font-size: 24rpx;
+        color: #999;
+      }
+      
+      &.active {
+        .tab-icon {
+          // background-color: #ff6b35;
+        }
+        
+        .tab-text {
+          color: #ff6b35;
+        }
+      }
+    }
+  }
