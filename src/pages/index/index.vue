@@ -44,6 +44,7 @@ const currentTab = ref('home')
 // 模拟商品数据
 const productList = ref([
   {
+    id: 1,
     name: '醉梦琼浆',
     desc: '品味好光，沉醉佳酿',
     price: '999.9',
@@ -51,6 +52,7 @@ const productList = ref([
     image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
   },
   {
+    id: 2,
     name: '醉梦琼浆',
     desc: '品味好光，沉醉佳酿',
     price: '999.9',
@@ -58,6 +60,7 @@ const productList = ref([
     image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
   },
   {
+    id: 3,
     name: '醉梦琼浆',
     desc: '品味好光，沉醉佳酿',
     price: '999.9',
@@ -65,6 +68,7 @@ const productList = ref([
     image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
   },
   {
+    id: 4,
     name: '醉梦琼浆',
     desc: '品味好光，沉醉佳酿',
     price: '999.9',
@@ -72,6 +76,7 @@ const productList = ref([
     image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
   },
   {
+    id: 5,
     name: '醉梦琼浆',
     desc: '品味好光，沉醉佳酿',
     price: '999.9',
@@ -79,6 +84,7 @@ const productList = ref([
     image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
   },
   {
+    id: 6,
     name: '醉梦琼浆',
     desc: '品味好光，沉醉佳酿',
     price: '999.9',
@@ -86,6 +92,7 @@ const productList = ref([
     image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
   },
   {
+    id: 7,
     name: '醉梦琼浆',
     desc: '品味好光，沉醉佳酿',
     price: '999.9',
@@ -93,6 +100,7 @@ const productList = ref([
     image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
   },
   {
+    id: 8,
     name: '醉梦琼浆',
     desc: '品味好光，沉醉佳酿',
     price: '999.9',

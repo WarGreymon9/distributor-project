@@ -24,21 +24,33 @@
       <view 
         class="tab-item" 
         :class="{ active: activeTab === 'reportForm' }" 
+        v-if="isDistributor"
         @click="switchTab('reportForm')"
       >
         <img src="../../assets/bd.png" v-if="activeTab != 'reportForm'" class="tab-icon share-icon">
         <img src="../../assets/bd_xz.png" v-if="activeTab === 'reportForm'" class="tab-icon share-icon">
-        <text class="tab-text">我的</text>
+        <text class="tab-text">报单</text>
       </view>
        
       <view 
         class="tab-item" 
         :class="{ active: activeTab === 'profile' }" 
+        v-if="isDistributor"
         @click="switchTab('profile')"
       >
         <img src="../../assets/wd.png" v-if="activeTab != 'profile'" class="tab-icon share-icon">
         <img src="../../assets/wd_xz.png" v-if="activeTab === 'profile'" class="tab-icon share-icon">
         <text class="tab-text">我的</text>
+      </view>
+      <view 
+        class="tab-item" 
+        :class="{ active: activeTab === 'profile' }" 
+        v-if="!isDistributor"
+        @click="switchTab('profile')"
+      >
+        <img src="../../assets/wd.png" v-if="activeTab != 'profile'" class="tab-icon share-icon">
+        <img src="../../assets/wd_xz.png" v-if="activeTab === 'profile'" class="tab-icon share-icon">
+        <text class="tab-text">查单</text>
       </view>
     </view>
   </template>
@@ -50,7 +62,12 @@
     current: {
       type: String,
       default: 'home'
+    },
+    isDistributor: {
+      type: Boolean,
+      default: true
     }
+
   })
   
   const emit = defineEmits(['change'])

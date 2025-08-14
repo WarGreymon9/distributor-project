@@ -72,6 +72,30 @@
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
         </view>
       </view>
+      <view v-if="showNicknameModal" class="modal-overlay" @click="closeNicknameModal">
+      <view class="modal-content" @click.stop>
+        <view class="modal-header">
+          <text class="modal-title">修改账号昵称</text>
+        </view>
+        <view class="modal-body">
+          <input 
+            v-model="newNickname" 
+            class="nickname-input" 
+            placeholder="请输入新昵称"
+            maxlength="20"
+            :focus="showNicknameModal"
+          />
+        </view>
+        <view class="modal-footer">
+          <view class="modal-btn cancel-btn" @click="closeNicknameModal">
+            <text>取消</text>
+          </view>
+          <view class="modal-btn confirm-btn" @click="confirmNickname">
+            <text>确认</text>
+          </view>
+        </view>
+      </view>
+    </view>
         <TabBar :current="currentTab" @change="handleTabChange" />
     </view>
   </template>
@@ -81,6 +105,8 @@
   import TabBar from '../../components/TabBar/index.vue'
   
   const currentTab = ref('profile')
+  const showNicknameModal = ref(false)
+  const newNickname = ref('')
   const userInfo = ref({
     username: '用户名123',
     userId: '123456789',
@@ -95,10 +121,8 @@
         })
         break
       case 'nickname':
-        uni.showToast({
-          title: '修改昵称功能',
-          icon: 'none'
-        })
+        newNickname.value = userInfo.value.username
+        showNicknameModal.value = true
         break
       case 'register':
         uni.navigateTo({
@@ -139,7 +163,40 @@
         break
     }
   }
+  const closeNicknameModal = () => {
+  showNicknameModal.value = false
+  newNickname.value = ''
+}
 
+  const confirmNickname = async () => {
+    if (!newNickname.value.trim()) {
+      uni.showToast({
+        title: '请输入昵称',
+        icon: 'none'
+      })
+      return
+    }
+    
+    try {
+      // 这里调用API更新昵称
+      // await updateNickname(newNickname.value)
+      
+      // 更新本地用户信息
+      userInfo.value.username = newNickname.value
+      
+      uni.showToast({
+        title: '修改成功',
+        icon: 'success'
+      })
+      
+      closeNicknameModal()
+    } catch (error) {
+      uni.showToast({
+        title: '修改失败，请重试',
+        icon: 'none'
+      })
+    }
+  }
   const handleTabChange = (tab) => {
     currentTab.value = tab
     // 这里可以处理tab切换逻辑，比如跳转到其他页面

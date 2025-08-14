@@ -51,6 +51,12 @@
 			}
 		},
 		{
+			"path": "pages/register/index",
+			"style": {
+				"navigationBarTitleText": "用户注册"
+			}
+		},
+		{
 			"path": "pages/reportList/index",
 			"style":{
 				"navigationBarTitleText": "报单列表"
@@ -66,12 +72,6 @@
 			"path": "pages/changePassword/index",
 			"style": {
 				"navigationBarTitleText": "修改密码"
-			}
-		},
-		{
-			"path": "pages/register/index",
-			"style": {
-			  "navigationBarTitleText": "用户注册"
 			}
 		},
 		{
