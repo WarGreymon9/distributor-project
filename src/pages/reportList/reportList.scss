@@ -1,0 +1,282 @@
+.product-detail-page {
+    min-height: 100vh;
+    background-color: rgb(248, 248, 247);
+    padding-bottom: 165rpx;
+    white-space: nowrap;
+  
+    // 隐藏滚动条 - Webkit浏览器
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    // 隐藏滚动条 - Firefox
+    scrollbar-width: none;
+    
+    // 隐藏滚动条 - IE/Edge
+    -ms-overflow-style: none;
+  }
+  .top-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .top-nav {
+    background-color: #fff;
+    padding: 20rpx 0;
+    
+    .nav-tabs {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      
+      .nav-tab {
+        padding: 10rpx 40rpx;
+        font-size: 28rpx;
+        color: #666;
+        position: relative;
+        
+        &.active {
+          color: #ff6b6b;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -10rpx;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40rpx;
+            height: 4rpx;
+            background-color: #ff6b6b;
+          }
+        }
+      }
+    }
+  }
+  
+  .search-container {
+    padding: 20rpx;
+    background-color: #fff;
+    margin-bottom: 20rpx;
+    
+    .search-box {
+      display: flex;
+      align-items: center;
+      background-color: #f8f8f8;
+      border-radius: 30rpx;
+      padding: 15rpx 20rpx;
+      
+      .search-input {
+        flex: 1;
+        margin-left: 15rpx;
+        font-size: 28rpx;
+        color: #333;
+        
+        &::placeholder {
+          color: #999;
+        }
+      }
+    }
+  }
+
+  .product-container{
+    display: flex;
+    flex-direction: column;
+    margin: 0rpx 20rpx 20rpx;
+    // border-top-right-radius: 28rpx;
+    // border-top-left-radius: 28rpx;
+    
+  }
+
+  .bottom-action-btns{
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx;
+    background-color: #fff;
+    // margin: 0rpx 20rpx 20rpx;
+    // height: 100rpx;
+    gap: 20rpx;
+    border-bottom-right-radius: 28rpx;
+    border-bottom-left-radius: 28rpx;
+
+
+  }
+
+  .action-btn {
+    flex: 1;
+    height: 80rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 60rpx;
+    
+    .btn-text {
+      font-size: 28rpx;
+      background-color: #fff;
+      font-weight: 500;
+
+    }
+    
+    &.order-btn {
+      border: 2px solid #1890ff;
+      color: #1890ff;
+      
+    }
+    
+    &.stock-btn {
+      border: 2px solid #52c41a;
+      color: #52c41a;
+    }
+    
+    &.report-btn {
+      border: 2px solid #ff6b6b;
+      color: #ff6b6b;
+    }
+  }
+  
+  .product-image-container {
+    background-color: #fff;
+    // padding: 10rpx;
+    // margin-bottom: 20rpx;
+    text-align: center;
+    border-top-right-radius: 28rpx;
+    border-top-left-radius: 28rpx;
+    
+    .product-image {
+      width: 100%;
+      height: 300rpx;
+      border-top-right-radius: 28rpx;
+      border-top-left-radius: 28rpx;
+    }
+  }
+  
+  .product-info {
+    background-color: #fff;
+    padding: 20rpx;
+    margin-bottom: 4rpx;
+    
+    
+    .info-row {
+      display: flex;
+      margin-bottom: 10rpx;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      .info-label {
+        font-size: 24rpx;
+        color: rgb(172, 171, 173);
+        width: 120rpx;
+      }
+      
+      .info-value {
+        flex: 1;
+        font-size: 24rpx;
+        color: rgb(172, 171, 173);
+      }
+    }
+  }
+  
+  .price-stock-info {
+    background-color: #fff;
+    padding: 20rpx 40rpx;
+    margin-bottom: 4rpx;
+    display: flex;
+    flex-direction: column;
+    gap: 15rpx;
+
+    
+    .price-section {
+      display: flex;
+      justify-content: space-between;
+      // margin-bottom: 20rpx;
+      
+      .price-item {
+        display: flex;
+        // flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16rpx;
+        
+        .price-label {
+          font-size: 24rpx;
+          color: #666;
+          // margin-bottom: 10rpx;
+        }
+        
+        .price-value {
+          font-size: 28rpx;
+          font-weight: 500;
+          color: #ff6b6b;
+
+          
+          // &.market-price {
+          //   color: #333;
+          // }
+          
+          // &.member-price {
+          //   color: #ff6b6b;
+          // }
+          
+          // &.price-diff {
+          //   color: #52c41a;
+          // }
+        }
+      }
+    }
+    
+    .stock-section {
+      text-align: center;
+      
+      .stock-item {
+        .stock-label {
+          font-size: 24rpx;
+          color: #666;
+          margin-right: 10rpx;
+        }
+        
+        .stock-value {
+          font-size: 28rpx;
+          color: #ff6b6b;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  .bottom-actions {
+    position: fixed;
+    bottom: 120rpx;
+    left: 0;
+    right: 0;
+    display: flex;
+    padding: 0 60rpx;
+
+    // background-color: #fff;
+    // border-top: 1px solid #e5e5e5;
+      .action-btn-new {
+    flex: 1;
+    height: 80rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 60rpx;
+    border: 2px solid #ff6b6b;
+    background-color: #ff6b6b;
+    
+    .btn-text {
+      font-size: 28rpx;
+      font-weight: 500;
+      color: #fff;
+
+    }
+    
+    
+  }
+
+  }
+

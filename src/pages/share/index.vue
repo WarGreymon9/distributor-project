@@ -39,7 +39,7 @@
           </view>
         </view>
       </view>
-      <TabBar :current="currentTab" @change="handleTabChange" />
+      <!-- <TabBar :current="currentTab" @change="handleTabChange" /> -->
     </view>
   </template>
   

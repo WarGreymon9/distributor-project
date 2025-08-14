@@ -32,7 +32,7 @@
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
         </view>
         
-        <view class="menu-item" @click="handleMenuClick('logout')">
+        <view class="menu-item" @click="handleMenuClick('register')">
           <view class="menu-left">
             <view class="menu-icon logout-icon"></view>
             <text class="menu-text">邀请注册</text>
@@ -59,7 +59,7 @@
         <view class="menu-item" @click="handleMenuClick('collection')">
           <view class="menu-left">
             <view class="menu-icon collection-icon"></view>
-            <text class="menu-text">收益数据</text>
+            <text class="menu-text">数据中心</text>
           </view>
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
         </view>
@@ -90,9 +90,8 @@
   const handleMenuClick = (type) => {
     switch (type) {
       case 'password':
-        uni.showToast({
-          title: '修改密码功能',
-          icon: 'none'
+        uni.navigateTo({
+          url: '/pages/changePassword/index' 
         })
         break
       case 'nickname':
@@ -101,28 +100,25 @@
           icon: 'none'
         })
         break
-      case 'logout':
-        uni.showToast({
-          title: '登录注销功能',
-          icon: 'none'
+      case 'register':
+        uni.navigateTo({
+          url: '/pages/register/index' 
         })
         break
       case 'address':
-        uni.showToast({
-          title: '地址管理功能',
-          icon: 'none'
+        uni.navigateTo({
+          url: '/pages/addressList/index'
         })
         break
       case 'orders':
         uni.navigateTo({
-          url: '/pages/orderList/index' 
+          url: '/pages/distributionOrder/index' 
         })
 
         break
       case 'collection':
-        uni.showToast({
-          title: '收藏列表功能',
-          icon: 'none'
+        uni.navigateTo({
+          url: '/pages/dataCenter/index'
         })
         break
       case 'exit':

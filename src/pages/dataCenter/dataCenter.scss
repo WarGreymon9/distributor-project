@@ -1,0 +1,213 @@
+.data-center-container {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20rpx 30rpx;
+    background-color: #fff;
+    
+    .title {
+      font-size: 36rpx;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .back-btn, .more-btn {
+      width: 60rpx;
+      height: 60rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+  }
+  
+  .date-tabs {
+    display: flex;
+    background-color: #fff;
+    padding: 20rpx 100rpx;
+    gap: 30rpx;
+    .date-tabsgroup{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background-color: rgb(241, 241, 243);
+      border-radius: 34rpx;
+      padding: 8rpx 0rpx;
+
+    }
+    
+    .date-tab {
+      padding: 12rpx 14rpx;
+      font-size: 28rpx;
+      color: #666;
+      border-radius: 20rpx;
+      
+      &.active {
+        background-color: #fff;
+        color: #333;
+      }
+    }
+  }
+  
+  .profit-section {
+    background-color: #fff;
+    padding: 0 30rpx 20rpx;
+    margin: 0 0 20rpx;
+    
+    
+    .profit-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10rpx;
+      margin-bottom: 20rpx;
+      
+      .profit-title {
+        font-size: 32rpx;
+        color: #333;
+        font-weight: 500;
+      }
+    }
+    
+    .profit-amount {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      
+      .amount-number {
+        font-size: 28rpx;
+        font-weight: bold;
+        color: #ff6b35;
+      }
+      
+      .amount-decimal {
+        font-size: 40rpx;
+        color: #ff6b35;
+        margin-left: 8rpx;
+      }
+    }
+  }
+  
+  .self-sales-section,
+  .team-section,
+  .big-team-section {
+    background-color: #fff;
+    margin-bottom: 20rpx;
+    
+    .section-header {
+      padding: 30rpx 30rpx 20rpx;
+      
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 12rpx;
+        
+        .title-bar {
+          width: 6rpx;
+          height: 32rpx;
+          background-color: #ff6b35;
+          border-radius: 3rpx;
+        }
+        
+        .title-text {
+          font-size: 32rpx;
+          font-weight: 500;
+          color: #333;
+        }
+      }
+    }
+    
+    .data-grid {
+      display: flex;
+    //   flex-wrap: wrap;
+     justify-content: space-around;
+      padding: 0 30rpx 30rpx;
+      
+      .data-item {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10rpx;
+        
+        .data-label {
+          font-size: 28rpx;
+          color: #666;
+          font-weight: 600;
+        }
+        
+        .data-value {
+          font-size: 28rpx;
+          color: #333;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  .big-team-section .data-grid .data-item {
+    width: 50%;
+  }
+  
+  .menu-section {
+    background-color: #fff;
+    
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 23rpx 30rpx;
+      border-bottom: 1rpx solid #f0f0f0;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .menu-left {
+        display: flex;
+        align-items: center;
+        gap: 20rpx;
+        
+        .menu-icon {
+          width: 40rpx;
+          height: 40rpx;
+          border-radius: 8rpx;
+          
+          &.distribution-icon {
+            background-color: #ff9800;
+          }
+          
+          &.product-icon {
+            background-color: #2196f3;
+          }
+          
+          &.team-icon {
+            background-color: #4caf50;
+          }
+          
+          &.sales-icon {
+            background-color: #9c27b0;
+          }
+          
+          &.ranking-icon {
+            background-color: #ff5722;
+          }
+          
+          &.agent-icon {
+            background-color: #607d8b;
+          }
+        }
+        
+        .menu-text {
+          font-size: 30rpx;
+          color: #333;
+        }
+      }
+    }
+  }

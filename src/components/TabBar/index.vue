@@ -68,13 +68,13 @@
         break
       case 'share':
         uni.redirectTo({
-          url: '/pages/share/index'
+          url: '/pages/classification/index'
         });
         break
       case 'reportForm':
-        // uni.redirectTo({
-        //   url: '/pages/reportForm/index'
-        // });
+        uni.redirectTo({
+          url: '/pages/reportList/index'
+        });
         break
       case 'profile':
         uni.redirectTo({

@@ -1,5 +1,7 @@
 {
 	"pages": [ 
+
+
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -16,6 +18,12 @@
 			"path": "pages/share/index",
 			"style": {
 				"navigationBarTitleText": "搜索商品"
+			}
+		},
+		{
+			"path": "pages/classification/index",
+			"style": {
+				"navigationBarTitleText": "分类"
 			}
 		},
 		{
@@ -41,8 +49,92 @@
 			"style": {
 			  "navigationBarTitleText": "订单详情"
 			}
+		},
+		{
+			"path": "pages/reportList/index",
+			"style":{
+				"navigationBarTitleText": "报单列表"
+			}
+		},
+		{
+			"path": "pages/reportForm/index",
+			"style": {
+			  "navigationBarTitleText": "新增订单"
+			}
+		},
+		{
+			"path": "pages/changePassword/index",
+			"style": {
+				"navigationBarTitleText": "修改密码"
+			}
+		},
+		{
+			"path": "pages/register/index",
+			"style": {
+			  "navigationBarTitleText": "用户注册"
+			}
+		},
+		{
+			"path": "pages/addressList/index",
+			"style": {
+				"navigationBarTitleText": "地址库管理"
+			}
+		},
+		{
+			"path": "pages/addressManage/index",
+			"style": {
+				"navigationBarTitleText": "地址编辑页"
+			}
+		},
+		{
+			"path": "pages/distributionOrder/index",
+			"style": {
+				"navigationBarTitleText": "分销订单"
+			}
+		},
+		{
+			"path": "pages/dataCenter/index",
+			"style": {
+				"navigationBarTitleText": "数据中心"
+			}
+		},
+		{
+			"path": "pages/dataCenter/page/salesRanking/index",
+			"style": {
+				"navigationBarTitleText": "销售龙虎榜"
+			}
+		},
+		{
+			"path": "pages/dataCenter/page/teamQuery/index",
+			"style": {
+				"navigationBarTitleText": "团队业绩查询"
+			}
+		},
+		{
+			"path": "pages/dataCenter/page/productQuery/index",
+			"style": {
+				"navigationBarTitleText": "产品数据查询"
+			}
+		},
+		{
+			"path": "pages/dataCenter/page/distributionData/index",
+			"style": {
+				"navigationBarTitleText": "分销数据汇总"
+			}
+		},
+		{
+			"path": "pages/dataCenter/page/distributorRanking/index",
+			"style": {
+				"navigationBarTitleText": "分销龙虎榜"
+			}
+		},
+		{
+			"path": "pages/dataCenter/page/agentQuery/index",
+			"style": {
+				"navigationBarTitleText": "代理人数查询"
+				
+			}
 		}
-
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
