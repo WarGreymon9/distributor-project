@@ -44,12 +44,12 @@
       </view>
       <view 
         class="tab-item" 
-        :class="{ active: activeTab === 'profile' }" 
-        v-if="!isDistributor"
-        @click="switchTab('profile')"
+        :class="{ active: activeTab === 'profileTourist' }" 
+        v-if="isDistributor"
+        @click="switchTab('profileTourist')"
       >
-        <img src="../../assets/wd.png" v-if="activeTab != 'profile'" class="tab-icon share-icon">
-        <img src="../../assets/wd_xz.png" v-if="activeTab === 'profile'" class="tab-icon share-icon">
+        <img src="../../assets/wd.png" v-if="activeTab != 'profileTourist'" class="tab-icon share-icon">
+        <img src="../../assets/wd_xz.png" v-if="activeTab === 'profileTourist'" class="tab-icon share-icon">
         <text class="tab-text">查单</text>
       </view>
     </view>
@@ -93,6 +93,11 @@
           url: '/pages/reportList/index'
         });
         break
+      case 'profileTourist':
+        uni.redirectTo({
+          url: '/pages/profileTourist/index'
+        });
+      break
       case 'profile':
         uni.redirectTo({
           url: '/pages/profile/index'

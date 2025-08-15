@@ -54,7 +54,13 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "requiredBackgroundModes": ["camera"],
+        "permission": {
+            "scope.camera": {
+                "desc": "用于OCR文字识别功能"
+            }
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true

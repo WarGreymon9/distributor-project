@@ -78,7 +78,8 @@
               <text class="product-desc">{{ product.description }}</text>
               <view class="product-price">
                 <text class="price">¥{{ product.price }}</text>
-                <view class="share-btn">
+                <view class="share-btn" style="display: flex; align-items: center; justify-content: center;">
+                  <img style="height: 48rpx; width: 48rpx;" src="../../assets/fx.png">
                   <text class="share-text">分享</text>
                 </view>
               </view>

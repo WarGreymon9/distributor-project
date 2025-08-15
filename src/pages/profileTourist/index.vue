@@ -3,72 +3,72 @@
       <!-- 顶部用户信息区域 -->
       <view class="user-header">
         <view class="user-info">
-          <view class="avatar">
-            <image src="/static/avatar.png" mode="aspectFill" class="avatar-img" />
-          </view>
-          <view class="user-details">
+          <!-- <view class="avatar">
+          </view> -->
+          <image style="width: 100%; height: 250rpx;" src="../../assets/cd_bj.png" mode="aspectFill" class="avatar-img" />
+
+          <!-- <view class="user-details">
             <view class="username">用户名123</view>
             <view class="user-id">级别：分销</view>
             <view class="user-id">用户: 123456789</view>
-          </view>
+          </view> -->
         </view>
       </view>
       
       <!-- 功能菜单列表 -->
       <view class="menu-list">
-        <view class="menu-item" @click="handleMenuClick('password')">
-          <view class="menu-left">
-            <!-- <view class="menu-icon password-icon"></view> -->
+        <!-- <view class="menu-item" @click="handleMenuClick('password')"> -->
+          <!-- <view class="menu-left">
             <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/xg_mm.png">
             <text class="menu-text">修改密码</text>
           </view>
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view>
+        </view> -->
         
-        <view class="menu-item" @click="handleMenuClick('nickname')">
+        <!-- <view class="menu-item" @click="handleMenuClick('nickname')">
           <view class="menu-left">
             <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/xg_nc.png">
             <text class="menu-text">修改昵称</text>
           </view>
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view>
+        </view> -->
         
-        <view class="menu-item" @click="handleMenuClick('register')">
+        <!-- <view class="menu-item" @click="handleMenuClick('register')">
           <view class="menu-left">
             <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/yq_zc.png">
             <text class="menu-text">邀请注册</text>
           </view>
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view>
+        </view> -->
         
-        <view class="menu-item" @click="handleMenuClick('address')">
+        <!-- <view class="menu-item" @click="handleMenuClick('address')">
           <view class="menu-left">
             <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/dz_gl.png">
             <text class="menu-text">地址管理</text>
           </view>
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view>
+        </view> -->
         
         <view class="menu-item" @click="handleMenuClick('orders')">
           <view class="menu-left">
             <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/dd_cx.png">
-            <text class="menu-text">订单列表</text>
+            <text class="menu-text">订单查询</text>
           </view>
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
         </view>
         
-        <view class="menu-item" @click="handleMenuClick('collection')">
+        <!-- <view class="menu-item" @click="handleMenuClick('collection')">
           <view class="menu-left">
             <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/sy_sj.png">
             <text class="menu-text">数据中心</text>
           </view>
-          <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view>
+          <view class="menu-arrow"><uni-icons type="right" size="20"></ uni-icons></view>
+        </view> -->
         
         <view class="menu-item" @click="handleMenuClick('exit')">
           <view class="menu-left">
             <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/fxs_dl.png">
-            <text class="menu-text">退出登录</text>
+            <text class="menu-text">分销商登录</text>
           </view>
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
         </view>
@@ -105,7 +105,7 @@
   import { ref } from 'vue'
   import TabBar from '../../components/TabBar/index.vue'
   
-  const currentTab = ref('profile')
+  const currentTab = ref('profileTourist')
   const showNicknameModal = ref(false)
   const newNickname = ref('')
   const userInfo = ref({
@@ -137,7 +137,7 @@
         break
       case 'orders':
         uni.navigateTo({
-          url: '/pages/distributionOrder/index' 
+          url: '/pages/orderList/index' 
         })
 
         break
@@ -206,5 +206,5 @@
   </script>
   
   <style scoped lang="scss">
-    @use './profile.scss';
+    @use './profileTourist.scss';
   </style>

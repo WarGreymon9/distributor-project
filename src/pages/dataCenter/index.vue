@@ -130,7 +130,7 @@
       <view class="menu-section">
         <view class="menu-item" @click="navigateTo('/pages/dataCenter/page/distributionData/index')">
           <view class="menu-left">
-            <view class="menu-icon distribution-icon"></view>
+            <img style="height: 36rpx; width: 36rpx;" src="../../assets/data/fx_sj_hz.png">
             <text class="menu-text">分销数据汇总</text>
           </view>
           <uni-icons type="right" size="16" color="#ccc"></uni-icons>
@@ -138,7 +138,7 @@
         
         <view class="menu-item" @click="navigateTo('/pages/dataCenter/page/productQuery/index')">
           <view class="menu-left">
-            <view class="menu-icon product-icon"></view>
+            <img style="height: 36rpx; width: 36rpx;" src="../../assets/data/cp_sj_cx.png">
             <text class="menu-text">产品数据查询</text>
           </view>
           <uni-icons type="right" size="16" color="#ccc"></uni-icons>
@@ -146,7 +146,7 @@
         
         <view class="menu-item" @click="navigateTo('/pages/dataCenter/page/teamQuery/index')">
           <view class="menu-left">
-            <view class="menu-icon team-icon"></view>
+            <img style="height: 36rpx; width: 36rpx;" src="../../assets/data/td_yj_cx.png">
             <text class="menu-text">团队业绩查询</text>
           </view>
           <uni-icons type="right" size="16" color="#ccc"></uni-icons>
@@ -154,7 +154,7 @@
         
         <view class="menu-item" @click="navigateTo('/pages/dataCenter/page/salesRanking/index')">
           <view class="menu-left">
-            <view class="menu-icon sales-icon"></view>
+            <img style="height: 36rpx; width: 36rpx;" src="../../assets/data/xs_lhb.png">
             <text class="menu-text">销售龙虎榜</text>
           </view>
           <uni-icons type="right" size="16" color="#ccc"></uni-icons>
@@ -162,7 +162,7 @@
         
         <view class="menu-item" @click="navigateTo('/pages/dataCenter/page/distributorRanking/index')">
           <view class="menu-left">
-            <view class="menu-icon ranking-icon"></view>
+            <img style="height: 36rpx; width: 36rpx;" src="../../assets/data/xs_phb.png">
             <text class="menu-text">销售排行榜</text>
           </view>
           <uni-icons type="right" size="16" color="#ccc"></uni-icons>
@@ -170,7 +170,7 @@
         
         <view class="menu-item" @click="navigateTo('/pages/dataCenter/page/agentQuery/index')">
           <view class="menu-left">
-            <view class="menu-icon agent-icon"></view>
+            <img style="height: 36rpx; width: 36rpx;" src="../../assets/data/dl_rs_cx.png">
             <text class="menu-text">代理人数查询</text>
           </view>
           <uni-icons type="right" size="16" color="#ccc"></uni-icons>

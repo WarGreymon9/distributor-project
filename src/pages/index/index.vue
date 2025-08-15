@@ -28,7 +28,7 @@
         <text>日常区</text>
       </view>
     </view>
-    <ProductList :productList="productList" />
+    <ProductList :productList="productList" @shareToWechat="shareToWechat"/>
     <!-- 底部tab栏 -->
     <TabBar :current="currentTab" @change="handleTabChange" />
   </view>
@@ -133,6 +133,46 @@ const handleTabChange = (tab) => {
   // 这里可以处理tab切换逻辑，比如跳转到其他页面
   console.log('切换到:', tab)
 }
+
+const shareToWechat = (product) => {
+    // 构建分享内容
+    // const shareData = {
+    //   title: product.name,
+    //   desc: `推荐一款好产品：${product.name}`,
+    //   imageUrl: product.image,
+    //   path: `/pages/productInfo/index?id=${product.id || 'default'}` // 分享页面路径
+    // }
+    
+    // // 使用uni-app的分享API
+    // uni.share({
+    //   provider: 'weixin',
+    //   scene: 'WXSceneSession', // 分享到微信好友
+    //   type: 0, // 图文分享
+    //   title: shareData.title,
+    //   summary: shareData.desc,
+    //   imageUrl: shareData.imageUrl,
+    //   href: shareData.path,
+    //   success: (res) => {
+    //     uni.showToast({
+    //       title: '分享成功',
+    //       icon: 'success'
+    //     })
+    //   },
+    //   fail: (err) => {
+    //     console.error('分享失败:', err)
+    //     // 如果原生分享失败，使用小程序的分享功能
+    //     uni.showShareMenu({
+    //       withShareTicket: true,
+    //       success: () => {
+    //         uni.showToast({
+    //           title: '请点击右上角分享',
+    //           icon: 'none'
+    //         })
+    //       }
+    //     })
+    //   }
+    // })
+  }
 </script>
 
 <style scoped lang="scss">
