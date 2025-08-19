@@ -4,7 +4,7 @@
     <view class="top-banner">
       <swiper class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="500">
         <swiper-item v-for="(item, index) in list" :key="index">
-          <image :src="item.image" mode="aspectFill" class="swiper-image" ></image>
+          <image :src="item.carouselImage?.[0]?.fileUrl" mode="aspectFill" class="swiper-image" ></image>
           <view class="swiper-title">{{ item.title }}</view>
         </swiper-item>
       </swiper>
@@ -35,78 +35,80 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import TabBar from '../../components/TabBar/index.vue'
 import ProductList from '../../components/ProductList/index.vue'
+import api from '../../api/index.js'
+
 const activeCategory = ref('new')
 const currentTab = ref('home')
 
 // 模拟商品数据
 const productList = ref([
-  {
-    id: 1,
-    name: '醉梦琼浆',
-    desc: '品味好光，沉醉佳酿',
-    price: '999.9',
-    originalPrice: '999',
-    image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  },
-  {
-    id: 2,
-    name: '醉梦琼浆',
-    desc: '品味好光，沉醉佳酿',
-    price: '999.9',
-    originalPrice: '999',
-    image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  },
-  {
-    id: 3,
-    name: '醉梦琼浆',
-    desc: '品味好光，沉醉佳酿',
-    price: '999.9',
-    originalPrice: '999',
-    image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  },
-  {
-    id: 4,
-    name: '醉梦琼浆',
-    desc: '品味好光，沉醉佳酿',
-    price: '999.9',
-    originalPrice: '999',
-    image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  },
-  {
-    id: 5,
-    name: '醉梦琼浆',
-    desc: '品味好光，沉醉佳酿',
-    price: '999.9',
-    originalPrice: '999',
-    image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  },
-  {
-    id: 6,
-    name: '醉梦琼浆',
-    desc: '品味好光，沉醉佳酿',
-    price: '999.9',
-    originalPrice: '999',
-    image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  },
-  {
-    id: 7,
-    name: '醉梦琼浆',
-    desc: '品味好光，沉醉佳酿',
-    price: '999.9',
-    originalPrice: '999',
-    image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  },
-  {
-    id: 8,
-    name: '醉梦琼浆',
-    desc: '品味好光，沉醉佳酿',
-    price: '999.9',
-    originalPrice: '999',
-    image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  }
+  // {
+  //   id: 1,
+  //   name: '醉梦琼浆',
+  //   desc: '品味好光，沉醉佳酿',
+  //   price: '999.9',
+  //   originalPrice: '999',
+  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
+  // },
+  // {
+  //   id: 2,
+  //   name: '醉梦琼浆',
+  //   desc: '品味好光，沉醉佳酿',
+  //   price: '999.9',
+  //   originalPrice: '999',
+  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
+  // },
+  // {
+  //   id: 3,
+  //   name: '醉梦琼浆',
+  //   desc: '品味好光，沉醉佳酿',
+  //   price: '999.9',
+  //   originalPrice: '999',
+  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
+  // },
+  // {
+  //   id: 4,
+  //   name: '醉梦琼浆',
+  //   desc: '品味好光，沉醉佳酿',
+  //   price: '999.9',
+  //   originalPrice: '999',
+  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
+  // },
+  // {
+  //   id: 5,
+  //   name: '醉梦琼浆',
+  //   desc: '品味好光，沉醉佳酿',
+  //   price: '999.9',
+  //   originalPrice: '999',
+  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
+  // },
+  // {
+  //   id: 6,
+  //   name: '醉梦琼浆',
+  //   desc: '品味好光，沉醉佳酿',
+  //   price: '999.9',
+  //   originalPrice: '999',
+  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
+  // },
+  // {
+  //   id: 7,
+  //   name: '醉梦琼浆',
+  //   desc: '品味好光，沉醉佳酿',
+  //   price: '999.9',
+  //   originalPrice: '999',
+  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
+  // },
+  // {
+  //   id: 8,
+  //   name: '醉梦琼浆',
+  //   desc: '品味好光，沉醉佳酿',
+  //   price: '999.9',
+  //   originalPrice: '999',
+  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
+  // }
 ])
 
 const list= ref( [{
@@ -173,6 +175,56 @@ const shareToWechat = (product) => {
     //   }
     // })
   }
+  
+  const GoodsList = async() => {
+    const data = {
+      page: 1,
+      size: 10
+    }
+    // const res = await uni.request({
+    //   url: "https://hbkadmin.xiaohe.com/api/app/goods/list",
+    //   method: 'GET',
+    //   data,
+    // })
+
+    try{
+      const res = await api.getGoodsList(data)
+      productList.value = res.data.list;
+      console.log("res", res.data.list);
+
+    }catch(err){
+      console.log("err", err);
+      
+    }
+
+  }
+  
+  const CarouselList = async() => {
+    const data = {
+      page: 1,
+      size: 10
+    }
+
+    try{
+      const res = await api.getCarouselList(data)
+      // productList.value = res.data.list;
+      list.value = res.data.list;
+      console.log("res", res.data.list);
+
+    }catch(err){
+      console.log("err", err);
+      
+    }
+
+    
+  }
+
+  onMounted(() => {
+    GoodsList();
+    CarouselList();
+  })
+
+
 </script>
 
 <style scoped lang="scss">

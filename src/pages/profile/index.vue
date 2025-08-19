@@ -4,7 +4,6 @@
       <view class="user-header">
         <view class="user-info">
           <view class="avatar">
-            <image src="/static/avatar.png" mode="aspectFill" class="avatar-img" />
           </view>
           <view class="user-details">
             <view class="username">用户名123</view>

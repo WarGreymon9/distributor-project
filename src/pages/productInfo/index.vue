@@ -123,32 +123,47 @@
   
   <script setup>
   import { ref } from 'vue'
+  import { onLoad } from '@dcloudio/uni-app'
+  import api from '../../api/index.js'
   
   const activeTab = ref('detail')
+
+  const GoodsInfo = async (id) => {
+    const res = await api.getGoodsInfo(id)
+    console.log(res);
+    return res
+  }
+
+  onLoad((options) =>{ 
+    console.log("options", options);
+
+    GoodsInfo(options.goodsld)
+    
+  })
   
   // 模拟商品数据
   const productInfo = ref({
-    name: '泸州老窖头曲白酒',
-    mainImage: 'https://img.alicdn.com/imgextra/i1/2616970884/O1CN01w3UVZo1IOv2GUZCO2_!!2616970884.png',
-    detailImages: [
-      'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg',
-      'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg',
-      'https://img.alicdn.com/imgextra/i1/2200629544182/O1CN014HwvxZ1glPMzKZx1i_!!2200629544182-0-scmitem6000.jpeg',
-      'https://img.alicdn.com/imgextra/i3/2200629544182/O1CN01oWoti71glPN0pXimS_!!2200629544182-0-scmitem6000.jpeg',
-      'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN016lfmXX1glPN1Ns1X0_!!2200629544182-0-scmitem6000.jpeg',
-      'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN016lfmXX1glPN1Ns1X0_!!2200629544182-0-scmitem6000.jpeg'
-    ],
-    realPhotos: [
-        {
-            type: 'video',
-            url: 'https://cloud.video.taobao.com/play/u/725677994/p/2/e/6/t/1/402519950243.mp4?appKey=38829',
-            poster: 'https://img.alicdn.com/imgextra/i2/6000000004467/O1CN01b2smVu1irwIxC3xeo_!!6000000004467-0-sm.jpg',
-            // title: '产品展示视频1'
-        }
-    ],
-    certificates: [
-      'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN01TTBJ5M1glPMz91l4K_!!2200629544182-0-scmitem6000.jpeg'
-    ]
+    // name: '泸州老窖头曲白酒',
+    // mainImage: 'https://img.alicdn.com/imgextra/i1/2616970884/O1CN01w3UVZo1IOv2GUZCO2_!!2616970884.png',
+    // detailImages: [
+    //   'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg',
+    //   'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg',
+    //   'https://img.alicdn.com/imgextra/i1/2200629544182/O1CN014HwvxZ1glPMzKZx1i_!!2200629544182-0-scmitem6000.jpeg',
+    //   'https://img.alicdn.com/imgextra/i3/2200629544182/O1CN01oWoti71glPN0pXimS_!!2200629544182-0-scmitem6000.jpeg',
+    //   'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN016lfmXX1glPN1Ns1X0_!!2200629544182-0-scmitem6000.jpeg',
+    //   'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN016lfmXX1glPN1Ns1X0_!!2200629544182-0-scmitem6000.jpeg'
+    // ],
+    // realPhotos: [
+    //     {
+    //         type: 'video',
+    //         url: 'https://cloud.video.taobao.com/play/u/725677994/p/2/e/6/t/1/402519950243.mp4?appKey=38829',
+    //         poster: 'https://img.alicdn.com/imgextra/i2/6000000004467/O1CN01b2smVu1irwIxC3xeo_!!6000000004467-0-sm.jpg',
+    //         // title: '产品展示视频1'
+    //     }
+    // ],
+    // certificates: [
+    //   'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN01TTBJ5M1glPMz91l4K_!!2200629544182-0-scmitem6000.jpeg'
+    // ]
   })
   
   const switchTab = (tab) => {

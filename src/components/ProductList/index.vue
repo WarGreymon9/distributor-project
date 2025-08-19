@@ -5,18 +5,20 @@
         <view 
           class="product-item"
           v-for="(product, index) in productList"
-          :key="index"
-          @click="productClick"
+          :key="product?.goodsId"
+          @click="productClick(product?.goodsId)"
         >
+        
           <view class="product-image" >
-            <image :src="product?.image" mode="aspectFill"></image>
+            <image :src="product?.goodsMainImages?.[0]?.fileUrl" mode="aspectFill"></image>
           </view>
           <view class="product-info">
-            <text class="product-name">{{ product?.name }}</text>
-            <text class="product-desc">{{ product?.desc }}</text>
+            <text class="product-name">{{ product?.goodsName }}</text>
+            <text class="product-desc">{{ product?.goodsSubname }}</text>
             <view class="product-price">
-              <text class="price">¥ {{ product?.price }}</text>
-              <text class="original-price" v-if="product?.originalPrice">¥{{ product?.originalPrice }}</text>
+              <text class="price">¥ {{ product?.goodsSalesPrice }}</text>
+              <!-- <text class="original-price" v-if="product?.originalPrice">¥{{ product?.originalPrice }}</text> -->
+              <text class="original-price" >库存{{ product?.originalPrice|| "无" }}</text>
               <view class="share-btn" open-type="share" @click.stop="shareToWechat(product)">
                 <view>
                 </view>
@@ -44,9 +46,11 @@ const props = defineProps({
 
 const emit = defineEmits(['shareToWechat'])
 
-const productClick = () => {
+const productClick = (goodsld) => {
+  console.log('商品点击', goodsld);
+  
     uni.navigateTo({
-        url: '/pages/productInfo/index'
+        url: `/pages/productInfo/index?goodsld=${goodsld}`
     });
 }
 
