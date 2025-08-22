@@ -4,11 +4,11 @@
       <view class="product-header">
         <image 
           class="product-main-image" 
-          :src="productInfo.mainImage" 
+          :src="productInfo?.goodsMainImages?.[0]?.fileUrl || ''" 
           mode="aspectFill"
         ></image>
         <view class="product-title">
-          <text class="product-name">{{ productInfo.name }}</text>
+          <text class="product-name">{{ productInfo?.goodsName }}</text>
           
         </view>
       </view>
@@ -47,12 +47,13 @@
 
           <view class="detail-images">
             <image 
-              v-for="(image, index) in productInfo.detailImages" 
+              v-for="(image, index) in productInfo?.goodsInfoImages" 
               :key="index"
               class="detail-image"
-              :src="image"
+              :src="image?.fileUrl"
               mode="widthFix"
             ></image>
+            
           </view>
         </view>
   
@@ -60,7 +61,7 @@
         <view v-if="activeTab === 'photos'" class="photos-content">
             <view class="photos-grid">
                 <view 
-                    v-for="(item, index) in productInfo.realPhotos" 
+                    v-for="(item, index) in productInfo?.realPhotos" 
                     :key="index"
                     class="media-item"
                 >
@@ -100,10 +101,10 @@
         <view v-if="activeTab === 'certificate'" class="certificate-content">
           <view class="certificate-images">
             <image 
-              v-for="(cert, index) in productInfo.certificates" 
+              v-for="(cert, index) in productInfo?.goodsAuthImages" 
               :key="index"
               class="certificate-image"
-              :src="cert"
+              :src="cert?.fileUrl"
               mode="widthFix"
             ></image>
           </view>
@@ -120,95 +121,66 @@
       </view>
     </view>
   </template>
+
+
+
   
   <script setup>
   import { ref } from 'vue'
   import { onLoad } from '@dcloudio/uni-app'
   import api from '../../api/index.js'
-  
+  import { onShareAppMessage } from '@dcloudio/uni-app'
+
   const activeTab = ref('detail')
+  // goodsAuthImages 商品认证图像
+  // goodsInfoImages 商品信息图片
+  // goodsMainImages 商品主要形象
+    // 模拟商品数据
+    const productInfo = ref({
+
+    })
+    const currentShareProduct = ref(null)
+
+  
 
   const GoodsInfo = async (id) => {
-    const res = await api.getGoodsInfo(id)
-    console.log(res);
-    return res
+    try{
+      const res = await api.getGoodsInfo(id)
+      productInfo.value = res.data
+
+      currentShareProduct.value = res.data
+      console.log("res.value", res.data);
+
+      console.log("productInfo.value", productInfo.value);
+
+
+      // return res
+
+    }catch(err){
+      console.log("err", err);
+      
+    }
+ 
   }
 
   onLoad((options) =>{ 
-    console.log("options", options);
+  console.log("options", options);
+  
+  // 修正参数名，支持多种参数名
+  const goodsId = options.goodsId || options.id || options.goodsld;
+  GoodsInfo(goodsId)
+})
 
-    GoodsInfo(options.goodsld)
-    
-  })
-  
-  // 模拟商品数据
-  const productInfo = ref({
-    // name: '泸州老窖头曲白酒',
-    // mainImage: 'https://img.alicdn.com/imgextra/i1/2616970884/O1CN01w3UVZo1IOv2GUZCO2_!!2616970884.png',
-    // detailImages: [
-    //   'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg',
-    //   'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg',
-    //   'https://img.alicdn.com/imgextra/i1/2200629544182/O1CN014HwvxZ1glPMzKZx1i_!!2200629544182-0-scmitem6000.jpeg',
-    //   'https://img.alicdn.com/imgextra/i3/2200629544182/O1CN01oWoti71glPN0pXimS_!!2200629544182-0-scmitem6000.jpeg',
-    //   'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN016lfmXX1glPN1Ns1X0_!!2200629544182-0-scmitem6000.jpeg',
-    //   'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN016lfmXX1glPN1Ns1X0_!!2200629544182-0-scmitem6000.jpeg'
-    // ],
-    // realPhotos: [
-    //     {
-    //         type: 'video',
-    //         url: 'https://cloud.video.taobao.com/play/u/725677994/p/2/e/6/t/1/402519950243.mp4?appKey=38829',
-    //         poster: 'https://img.alicdn.com/imgextra/i2/6000000004467/O1CN01b2smVu1irwIxC3xeo_!!6000000004467-0-sm.jpg',
-    //         // title: '产品展示视频1'
-    //     }
-    // ],
-    // certificates: [
-    //   'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN01TTBJ5M1glPMz91l4K_!!2200629544182-0-scmitem6000.jpeg'
-    // ]
-  })
-  
+
   const switchTab = (tab) => {
     activeTab.value = tab
   }
 
     // 添加分享功能
     const shareToWechat = () => {
-    // 构建分享内容
-    const shareData = {
-      title: productInfo.value.name,
-      desc: `推荐一款好产品：${productInfo.value.name}`,
-      imageUrl: productInfo.value.mainImage,
-      path: `/pages/productInfo/index?id=${productInfo.value.id || 'default'}` // 分享页面路径
-    }
-    
-    // 使用uni-app的分享API
-    uni.share({
-      provider: 'weixin',
-      scene: 'WXSceneSession', // 分享到微信好友
-      type: 0, // 图文分享
-      title: shareData.title,
-      summary: shareData.desc,
-      imageUrl: shareData.imageUrl,
-      href: shareData.path,
-      success: (res) => {
-        uni.showToast({
-          title: '分享成功',
-          icon: 'success'
-        })
-      },
-      fail: (err) => {
-        console.error('分享失败:', err)
-        // 如果原生分享失败，使用小程序的分享功能
-        uni.showShareMenu({
-          withShareTicket: true,
-          success: () => {
-            uni.showToast({
-              title: '请点击右上角分享',
-              icon: 'none'
-            })
-          }
-        })
-      }
-    })
+      // const currentShareProduct = productInfo.value
+      console.log("currentShareProduct", currentShareProduct);
+
   }
 
   const downloadVideo = (videoUrl, title) => {
@@ -250,6 +222,19 @@
         }
     })
     }
+
+onShareAppMessage(() => {
+  const pathGoodsId = `/pages/productInfo/index?goodsId=${currentShareProduct.value.goodsId}`
+  console.log("pathGoodsId", pathGoodsId);
+
+  
+  return {
+    title: currentShareProduct.value.goodsName || '商品分享',
+    desc: currentShareProduct.value.goodsSubname || '精选商品推荐',
+    imageUrl: currentShareProduct.value?.goodsMainImages?.[0]?.fileUrl || '',
+    path: pathGoodsId
+  }
+})
   </script>
   
   <style scoped lang="scss">

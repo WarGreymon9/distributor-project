@@ -9,5 +9,11 @@ export default {
     },
     getGoodsInfo (data) {
         return request.get(`/app/goods/info/${data}`)
-    }
+    },
+    getCategoryTree (data) {
+        return request.get('/app/category/tree',data)
+    },
+    getDictionaryList () {
+        return request.get(`/app/dict/data/4/list`)
+    },
 }

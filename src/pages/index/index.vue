@@ -8,7 +8,6 @@
           <view class="swiper-title">{{ item.title }}</view>
         </swiper-item>
       </swiper>
-
     </view>
     
     <!-- 商品分类标签 -->
@@ -28,7 +27,31 @@
         <text>日常区</text>
       </view>
     </view>
-    <ProductList :productList="productList" @shareToWechat="shareToWechat"/>
+    
+    <!-- 添加scroll-view包装商品列表 -->
+    <scroll-view 
+      class="scroll-container"
+      scroll-y="true"
+      refresher-enabled="true"
+      :refresher-triggered="refreshing"
+      @refresherrefresh="onRefresh"
+      @scrolltolower="onLoadMore"
+      :lower-threshold="50"
+    >
+      <ProductList :productList="productList" @shareToWechat="shareToWechat" @share="share"/>
+      
+      <!-- 加载更多提示 -->
+      <view class="load-more" v-if="hasMore">
+        <text v-if="loading">正在加载...</text>
+        <text v-else>上拉加载更多</text>
+      </view>
+      
+      <!-- 没有更多数据提示 -->
+      <view class="no-more" v-if="!hasMore && productList.length > 0">
+        <text>没有更多数据了</text>
+      </view>
+    </scroll-view>
+    
     <!-- 底部tab栏 -->
     <TabBar :current="currentTab" @change="handleTabChange" />
   </view>
@@ -39,194 +62,180 @@ import { ref, onMounted } from 'vue'
 import TabBar from '../../components/TabBar/index.vue'
 import ProductList from '../../components/ProductList/index.vue'
 import api from '../../api/index.js'
+import { onShareAppMessage } from '@dcloudio/uni-app'
 
 const activeCategory = ref('new')
 const currentTab = ref('home')
+const refreshing = ref(false)
+const loading = ref(false)
+const hasMore = ref(true)
+// 商品列表数据
+const productList = ref([])
+const currentShareProduct = ref(null)
+// 轮播图数据
+const list = ref([
+//   image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014dew0Y1glPPH6GpqE_!!2200629544182-1-scmitem6000.gif',
+//   title: '昨夜星辰昨夜风，画楼西畔桂堂东'
+// },
+// {
+//   image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014dew0Y1glPPH6GpqE_!!2200629544182-1-scmitem6000.gif',
+//   title: '身无彩凤双飞翼，心有灵犀一点通'
+// },
+// {
+//   image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014dew0Y1glPPH6GpqE_!!2200629544182-1-scmitem6000.gif',
+//   title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
+// }
+]);
 
-// 模拟商品数据
-const productList = ref([
-  // {
-  //   id: 1,
-  //   name: '醉梦琼浆',
-  //   desc: '品味好光，沉醉佳酿',
-  //   price: '999.9',
-  //   originalPrice: '999',
-  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  // },
-  // {
-  //   id: 2,
-  //   name: '醉梦琼浆',
-  //   desc: '品味好光，沉醉佳酿',
-  //   price: '999.9',
-  //   originalPrice: '999',
-  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  // },
-  // {
-  //   id: 3,
-  //   name: '醉梦琼浆',
-  //   desc: '品味好光，沉醉佳酿',
-  //   price: '999.9',
-  //   originalPrice: '999',
-  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  // },
-  // {
-  //   id: 4,
-  //   name: '醉梦琼浆',
-  //   desc: '品味好光，沉醉佳酿',
-  //   price: '999.9',
-  //   originalPrice: '999',
-  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  // },
-  // {
-  //   id: 5,
-  //   name: '醉梦琼浆',
-  //   desc: '品味好光，沉醉佳酿',
-  //   price: '999.9',
-  //   originalPrice: '999',
-  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  // },
-  // {
-  //   id: 6,
-  //   name: '醉梦琼浆',
-  //   desc: '品味好光，沉醉佳酿',
-  //   price: '999.9',
-  //   originalPrice: '999',
-  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  // },
-  // {
-  //   id: 7,
-  //   name: '醉梦琼浆',
-  //   desc: '品味好光，沉醉佳酿',
-  //   price: '999.9',
-  //   originalPrice: '999',
-  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  // },
-  // {
-  //   id: 8,
-  //   name: '醉梦琼浆',
-  //   desc: '品味好光，沉醉佳酿',
-  //   price: '999.9',
-  //   originalPrice: '999',
-  //   image: 'https://img.alicdn.com/imgextra/i1/1597499963/O1CN01FBojkI2NT73DsvdX0_!!1597499963.jpg'
-  // }
-])
+const data = ref({
+  page: 1,
+  size: 10
+})
 
-const list= ref( [{
-						image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014dew0Y1glPPH6GpqE_!!2200629544182-1-scmitem6000.gif',
-						title: '昨夜星辰昨夜风，画楼西畔桂堂东'
-					},
-					{
-						image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014dew0Y1glPPH6GpqE_!!2200629544182-1-scmitem6000.gif',
-						title: '身无彩凤双飞翼，心有灵犀一点通'
-					},
-					{
-						image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014dew0Y1glPPH6GpqE_!!2200629544182-1-scmitem6000.gif',
-						title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
-					}
-				]);
+// 获取商品列表
+const GoodsList = async(isRefresh = false) => {
+  if (loading.value) return
+  
+  loading.value = true
+  
+  try {
+    const res = await api.getGoodsList(data.value)
+    
+    if (isRefresh) {
+      // 下拉刷新，替换数据
+      productList.value = res.data.list
+    } else {
+      // 上拉加载，追加数据
+      productList.value = [...productList.value, ...res.data.list]
+    }
+    
+    // 判断是否还有更多数据
+    hasMore.value = res.data.list.length === data.value.size
+    
+    console.log("res", res.data.list)
+  } catch (err) {
+    console.log("err", err)
+    uni.showToast({
+      title: '加载失败',
+      icon: 'none'
+    })
+  } finally {
+    loading.value = false
+    refreshing.value = false
+  }
+}
+
+// 下拉刷新
+const onRefresh = () => {
+  refreshing.value = true
+  data.value.page = 1
+  hasMore.value = true
+  GoodsList(true)
+}
+
+// 上拉加载更多
+const onLoadMore = () => {
+  if (!hasMore.value || loading.value) return
+  
+  data.value.page += 1
+  GoodsList(false)
+}
+
+// 获取轮播图列表
+const CarouselList = async() => {
+  const carouselData = {
+    page: 1,
+    size: 10
+  }
+
+  try {
+    const res = await api.getCarouselList(carouselData)
+    list.value = res.data.list
+    console.log("carousel res", res.data.list)
+  } catch (err) {
+    console.log("carousel err", err)
+  }
+}
 
 const switchCategory = (category) => {
   activeCategory.value = category
-  // 这里可以根据分类加载不同的商品数据
+  // 切换分类时重新加载数据
+  data.value.page = 1
+  hasMore.value = true
+  GoodsList(true)
 }
 
 const handleTabChange = (tab) => {
   currentTab.value = tab
-  // 这里可以处理tab切换逻辑，比如跳转到其他页面
   console.log('切换到:', tab)
 }
 
-const shareToWechat = (product) => {
-    // 构建分享内容
-    // const shareData = {
-    //   title: product.name,
-    //   desc: `推荐一款好产品：${product.name}`,
-    //   imageUrl: product.image,
-    //   path: `/pages/productInfo/index?id=${product.id || 'default'}` // 分享页面路径
-    // }
-    
-    // // 使用uni-app的分享API
-    // uni.share({
-    //   provider: 'weixin',
-    //   scene: 'WXSceneSession', // 分享到微信好友
-    //   type: 0, // 图文分享
-    //   title: shareData.title,
-    //   summary: shareData.desc,
-    //   imageUrl: shareData.imageUrl,
-    //   href: shareData.path,
-    //   success: (res) => {
-    //     uni.showToast({
-    //       title: '分享成功',
-    //       icon: 'success'
-    //     })
-    //   },
-    //   fail: (err) => {
-    //     console.error('分享失败:', err)
-    //     // 如果原生分享失败，使用小程序的分享功能
-    //     uni.showShareMenu({
-    //       withShareTicket: true,
-    //       success: () => {
-    //         uni.showToast({
-    //           title: '请点击右上角分享',
-    //           icon: 'none'
-    //         })
-    //       }
-    //     })
-    //   }
-    // })
+const share = (product) => { 
+  
+  currentShareProduct.value = product
+  console.log('分享商品')
+}
+
+
+onMounted(() => {
+  GoodsList(true)
+  CarouselList()
+})
+
+onShareAppMessage(() => {
+  // 获取最新的分享商品数据
+  const shareProduct = currentShareProduct.value
+  
+  console.log('分享时的商品数据：', shareProduct)
+  
+  // 检查 currentShareProduct 是否有值
+  if (!shareProduct) {
+    console.log('currentShareProduct 为空，使用默认分享内容')
+    return {
+      title: '商品分享',
+      desc: '精选商品推荐',
+      imageUrl: '',
+      path: '/pages/index/index'
+    }
   }
   
-  const GoodsList = async() => {
-    const data = {
-      page: 1,
-      size: 10
-    }
-    // const res = await uni.request({
-    //   url: "https://hbkadmin.xiaohe.com/api/app/goods/list",
-    //   method: 'GET',
-    //   data,
-    // })
+  const pathGoodsId = `/pages/productInfo/index?goodsId=${shareProduct.goodsId}`
+  console.log("pathGoodsId", pathGoodsId)
 
-    try{
-      const res = await api.getGoodsList(data)
-      productList.value = res.data.list;
-      console.log("res", res.data.list);
-
-    }catch(err){
-      console.log("err", err);
-      
-    }
-
+  return {
+    title: shareProduct.goodsName || '商品分享',
+    desc: shareProduct.goodsSubname || '精选商品推荐',
+    imageUrl: shareProduct?.goodsMainImages?.[0]?.fileUrl || '',
+    path: pathGoodsId
   }
-  
-  const CarouselList = async() => {
-    const data = {
-      page: 1,
-      size: 10
-    }
-
-    try{
-      const res = await api.getCarouselList(data)
-      // productList.value = res.data.list;
-      list.value = res.data.list;
-      console.log("res", res.data.list);
-
-    }catch(err){
-      console.log("err", err);
-      
-    }
-
-    
-  }
-
-  onMounted(() => {
-    GoodsList();
-    CarouselList();
-  })
+})
 
 
 </script>
 
 <style scoped lang="scss">
-  @use "./home.scss";
+@use "./home.scss";
+
+.scroll-container {
+  flex: 1;
+  height: calc(100vh - 300rpx); // 减去顶部banner和底部tabbar的高度
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.no-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  color: #ccc;
+  font-size: 24rpx;
+}
 </style>

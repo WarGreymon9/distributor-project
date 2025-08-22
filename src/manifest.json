@@ -62,6 +62,8 @@
             }
         }
     },
+    "shareLocation": true,
+    "navigateToMiniProgramAppIdList": [],
     "mp-alipay" : {
         "usingComponents" : true
     },

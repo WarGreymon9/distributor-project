@@ -44,120 +44,162 @@
   </template>
   
   <script setup>
-  import { ref, computed } from 'vue'
+  import { ref, computed, watch } from 'vue'
   import ProductList from '../../components/ProductList/index.vue'
   import TabBar from '../../components/TabBar/index.vue'
+  import api from '../../api/index.js'
 
   const currentTab = ref('share')
-
   
   const searchValue = ref('')
   
+
   
   // 模拟商品数据
   const products = ref([
-    {
-      id: 1,
-      name: '醉梦琼浆',
-      description: '品味时光，沉醉佳酿',
-      price: '999.9',
-      originalPrice: '999',
-      image: 'https://img.alicdn.com/imgextra/i1/2616970884/O1CN01w3UVZo1IOv2GUZCO2_!!2616970884.png'
-    },
-    {
-      id: 2,
-      name: '泸州老窖头曲',
-      description: '传统工艺，醇香回甘',
-      price: '888.8',
-      originalPrice: '999',
-      image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 3,
-      name: '五粮液经典',
-      description: '五粮精酿，香醇甘美',
-      price: '1299.9',
-      originalPrice: '1399',
-      image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 4,
-      name: '泸州老窖头曲',
-      description: '传统工艺，醇香回甘',
-      price: '888.8',
-      originalPrice: '999',
-      image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 5,
-      name: '五粮液经典',
-      description: '五粮精酿，香醇甘美',
-      price: '1299.9',
-      originalPrice: '1399',
-      image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 6,
-      name: '泸州老窖头曲',
-      description: '传统工艺，醇香回甘',
-      price: '888.8',
-      originalPrice: '999',
-      image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 7,
-      name: '五粮液经典',
-      description: '五粮精酿，香醇甘美',
-      price: '1299.9',
-      originalPrice: '1399',
-      image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 8,
-      name: '泸州老窖头曲',
-      description: '传统工艺，醇香回甘',
-      price: '888.8',
-      originalPrice: '999',
-      image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 9,
-      name: '五粮液经典',
-      description: '五粮精酿，香醇甘美',
-      price: '1299.9',
-      originalPrice: '1399',
-      image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 10,
-      name: '泸州老窖头曲',
-      description: '传统工艺，醇香回甘',
-      price: '888.8',
-      originalPrice: '999',
-      image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
-    },
-    {
-      id: 11,
-      name: '五粮液经典',
-      description: '五粮精酿，香醇甘美',
-      price: '1299.9',
-      originalPrice: '1399',
-      image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
-    }
+    // {
+    //   id: 1,
+    //   name: '醉梦琼浆',
+    //   description: '品味时光，沉醉佳酿',
+    //   price: '999.9',
+    //   originalPrice: '999',
+    //   image: 'https://img.alicdn.com/imgextra/i1/2616970884/O1CN01w3UVZo1IOv2GUZCO2_!!2616970884.png'
+    // },
+    // {
+    //   id: 2,
+    //   name: '泸州老窖头曲',
+    //   description: '传统工艺，醇香回甘',
+    //   price: '888.8',
+    //   originalPrice: '999',
+    //   image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 3,
+    //   name: '五粮液经典',
+    //   description: '五粮精酿，香醇甘美',
+    //   price: '1299.9',
+    //   originalPrice: '1399',
+    //   image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 4,
+    //   name: '泸州老窖头曲',
+    //   description: '传统工艺，醇香回甘',
+    //   price: '888.8',
+    //   originalPrice: '999',
+    //   image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 5,
+    //   name: '五粮液经典',
+    //   description: '五粮精酿，香醇甘美',
+    //   price: '1299.9',
+    //   originalPrice: '1399',
+    //   image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 6,
+    //   name: '泸州老窖头曲',
+    //   description: '传统工艺，醇香回甘',
+    //   price: '888.8',
+    //   originalPrice: '999',
+    //   image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 7,
+    //   name: '五粮液经典',
+    //   description: '五粮精酿，香醇甘美',
+    //   price: '1299.9',
+    //   originalPrice: '1399',
+    //   image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 8,
+    //   name: '泸州老窖头曲',
+    //   description: '传统工艺，醇香回甘',
+    //   price: '888.8',
+    //   originalPrice: '999',
+    //   image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 9,
+    //   name: '五粮液经典',
+    //   description: '五粮精酿，香醇甘美',
+    //   price: '1299.9',
+    //   originalPrice: '1399',
+    //   image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 10,
+    //   name: '泸州老窖头曲',
+    //   description: '传统工艺，醇香回甘',
+    //   price: '888.8',
+    //   originalPrice: '999',
+    //   image: 'https://img.alicdn.com/imgextra/i4/2200629544182/O1CN01EDBpVY1glPN1NqTrK_!!2200629544182-0-scmitem6000.jpeg'
+    // },
+    // {
+    //   id: 11,
+    //   name: '五粮液经典',
+    //   description: '五粮精酿，香醇甘美',
+    //   price: '1299.9',
+    //   originalPrice: '1399',
+    //   image: 'https://img.alicdn.com/imgextra/i2/2200629544182/O1CN014TFHFe1glPN0LdX68_!!2200629544182-0-scmitem6000.jpeg'
+    // }
   ])
-  
-  // 搜索过滤
-  const filteredProducts = computed(() => {
-    if (!searchValue.value) return []
-    return products.value.filter(product => 
-      product.name.toLowerCase().includes(searchValue.value.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchValue.value.toLowerCase())
-    )
+
+  const data = ref({
+    page: 1,
+    size: 10,
+    keyword: ''
   })
-  
+  let debounceTimer = null
+
+  // 搜索过滤
+  // const filteredProducts = computed(() => {
+  //   if (!searchValue.value) return []
+  //   return products.value.filter(product => 
+  //     product.name.toLowerCase().includes(searchValue.value.toLowerCase()) ||
+  //     product.description.toLowerCase().includes(searchValue.value.toLowerCase())
+  //   )
+  // })
+
+
+
+  const GoodsList = async() => {
+
+    try{
+      const res = await api.getGoodsList(data.value)
+      products.value = res.data.list;
+      console.log("res", res.data.list);
+
+    }catch(err){
+      console.log("err", err);
+      
+    }
+
+  }
+
+  const debounceSearch = () => {
+    if (debounceTimer) {
+      clearTimeout(debounceTimer)
+    }
+    debounceTimer = setTimeout(() => {
+      GoodsList()
+    }, 500) // 500ms防抖延迟
+  }
+
+  watch(() => data.value.keyword, () => {
+    debounceSearch()
+  })
+
+  // 监听其他字段变化（如page、size）立即执行
+  watch(() => [data.value.page, data.value.size], () => {
+    GoodsList()
+  })
   // 搜索输入处理
   const onSearchInput = (e) => {
-    searchValue.value = e.detail.value
+    // searchValue.value = e.detail.value
+    data.value.keyword = e.detail.value
   }
   
   // 搜索按钮处理

@@ -17,37 +17,6 @@
       
       <!-- 功能菜单列表 -->
       <view class="menu-list">
-        <!-- <view class="menu-item" @click="handleMenuClick('password')"> -->
-          <!-- <view class="menu-left">
-            <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/xg_mm.png">
-            <text class="menu-text">修改密码</text>
-          </view>
-          <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view> -->
-        
-        <!-- <view class="menu-item" @click="handleMenuClick('nickname')">
-          <view class="menu-left">
-            <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/xg_nc.png">
-            <text class="menu-text">修改昵称</text>
-          </view>
-          <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view> -->
-        
-        <!-- <view class="menu-item" @click="handleMenuClick('register')">
-          <view class="menu-left">
-            <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/yq_zc.png">
-            <text class="menu-text">邀请注册</text>
-          </view>
-          <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view> -->
-        
-        <!-- <view class="menu-item" @click="handleMenuClick('address')">
-          <view class="menu-left">
-            <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/dz_gl.png">
-            <text class="menu-text">地址管理</text>
-          </view>
-          <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
-        </view> -->
         
         <view class="menu-item" @click="handleMenuClick('orders')">
           <view class="menu-left">
@@ -56,14 +25,8 @@
           </view>
           <view class="menu-arrow"><uni-icons type="right" size="20"></uni-icons></view>
         </view>
-        
-        <!-- <view class="menu-item" @click="handleMenuClick('collection')">
-          <view class="menu-left">
-            <img style="height: 36rpx; width: 36rpx;" src="../../assets/me/sy_sj.png">
-            <text class="menu-text">数据中心</text>
-          </view>
-          <view class="menu-arrow"><uni-icons type="right" size="20"></ uni-icons></view>
-        </view> -->
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
+     
         
         <view class="menu-item" @click="handleMenuClick('exit')">
           <view class="menu-left">

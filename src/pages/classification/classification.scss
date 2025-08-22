@@ -54,8 +54,8 @@
     // border-right: 1px solid #e5e5e5;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-bottom: 100rpx;
-    
+    padding-bottom: 200rpx;
+    z-index: 1000;
     // 隐藏滚动条样式
     &::-webkit-scrollbar {
       display: none;
@@ -155,9 +155,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
     // padding: 10rpx 20rpx;
     // background-color: #f8f8f8;
     // border-radius: 30rpx;
+    background-color: #fff;
 
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -169,9 +171,11 @@
         font-size: 20rpx;
         color: #666;
         transition: transform 0.3s ease;
+        background-color: #fff;
         
         &.arrow-up {
           transform: rotate(180deg);
+          
         }
       }
       .dropdown-panel {
@@ -196,6 +200,21 @@
           grid-template-columns: repeat(3, 1fr);
           gap: 20rpx;
           padding: 30rpx;
+          overflow-y: auto;
+          overflow-x: hidden;
+          height: 380rpx;
+          white-space: nowrap;
+  
+          // 隐藏滚动条 - Webkit浏览器
+          &::-webkit-scrollbar {
+            display: none;
+          }
+          
+          // 隐藏滚动条 - Firefox
+          scrollbar-width: none;
+          
+          // 隐藏滚动条 - IE/Edge
+          -ms-overflow-style: none;
           
           .dropdown-item {
             display: flex;
@@ -238,25 +257,30 @@
     padding: 20rpx;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-bottom: 100rpx;
+    padding-bottom: 200rpx;
     position: relative;
-    // 隐藏滚动条样式
+    box-sizing: border-box;/* 防止内边距溢出 */
+    white-space: nowrap;
+  
+    // 隐藏滚动条 - Webkit浏览器
     &::-webkit-scrollbar {
       display: none;
     }
     
-    // 兼容Firefox
+    // 隐藏滚动条 - Firefox
     scrollbar-width: none;
     
-    // 兼容IE
+    // 隐藏滚动条 - IE/Edge
     -ms-overflow-style: none;
 
     
 
   }
 
+ 
+
   .dropdown-mask {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -267,14 +291,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden; // 禁止滚动
+    // 禁止触摸滚动
+    touch-action: none;
+    // 防止滚动穿透
+    overscroll-behavior: contain;
   }
+
+
   
   .product-item {
     display: flex;
     padding: 30rpx;
     margin-bottom: 20rpx;
     background-color: #fff;
-    border-radius: 16rpx;
+    // border-radius: 16rpx;
     box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
     
     .product-image {
@@ -282,6 +313,7 @@
       height: 120rpx;
       border-radius: 12rpx;
       margin-right: 30rpx;
+      border: 1rpx solid #ddd;
     }
     
     .product-info {
@@ -320,8 +352,11 @@
         
         .share-btn {
           padding: 10rpx 20rpx;
+          margin: 0rpx;
           // background-color: #f5f5f5;
           // border-radius: 20rpx;
+
+          
           
           .share-text {
             font-size: 24rpx;
